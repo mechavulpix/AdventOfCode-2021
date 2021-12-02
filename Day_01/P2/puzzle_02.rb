@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require './lib/scanner'
+require_relative 'lib/scanner'
 
 scanner = Scanner.new(filename: "Day_01/input_01.txt", window_size: 3)
 
