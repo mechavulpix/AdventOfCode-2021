@@ -1,4 +1,4 @@
-require "./lib/sub"
+require_relative "sub"
 
 class Pilot
   def initialize(directions_file:)
