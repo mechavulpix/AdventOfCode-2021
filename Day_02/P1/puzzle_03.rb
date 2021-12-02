@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-require './lib/sub'
-require './lib/pilot'
+require_relative 'lib/sub'
+require_relative 'lib/pilot'
 
 sub = Sub.new
 pilot = Pilot.new(directions_file: "Day_02/input_02.txt")
