@@ -17,7 +17,7 @@ class Scanner
     return nil
   end
 
-  # private
+  private
 
   def current_window_filled?
     @current_window.length >= @window_size
