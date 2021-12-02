@@ -1,49 +1,52 @@
 class Sub
   # depth is measured by distance from the surface, so distance below 0 is positive not negative
+  # similarly, aiming up would be negative and aiming down would be positve
   attr_accessor :depth
   attr_accessor :horizon
 
-  def initialize(depth: 0, horizon: 0)
+  def initialize(depth: 0, horizon: 0, aim: 0)
     @depth = depth
     @horizon = horizon
+    @aim = aim
   end
 
   def perform(command:)
     case command.directive
     when "forward"
-      forward(distance: command.distance)
+      forward(amount: command.amount)
     when "up"
-      up(distance: command.distance)
+      up(amount: command.amount)
     when "down"
-      down(distance: command.distance)
+      down(amount: command.amount)
     end
   end
 
-  def forward(distance:)
-    @horizon += distance
+  def forward(amount:)
+    @horizon += amount
+    @depth += amount * @aim
   end
 
-  def up(distance:)
-    @depth -= distance
+  def up(amount:)
+    @aim -= amount
   end
 
-  def down(distance:)
-    @depth += distance
+  def down(amount:)
+    @aim += amount
   end
 
   class Command
     attr_accessor :directive
-    attr_accessor :distance
+    attr_accessor :amount
 
-    def initialize(directive:, distance:)
+    def initialize(directive:, amount:)
       @directive = directive
-      @distance = distance
+      @amount = amount
     end
 
     def self.parse(command_string:)
-      directive, distance = command_string.split(' ')
+      directive, amount = command_string.split(' ')
 
-      return Command.new(directive: directive, distance: distance.to_i)
+      return Command.new(directive: directive, amount: amount.to_i)
     end
   end
 end
